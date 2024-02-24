@@ -1,4 +1,4 @@
-const { getProducts } = require('../controllers/productController');
+const { getProducts , getProduct} = require('../controllers/productController');
 const express = require("express");
 
  
@@ -14,5 +14,6 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
  
 router.get('/getProducts', getProducts);
+router.get('/getProduct', getProduct);
  
 module.exports = router;
