@@ -5,7 +5,6 @@ import { IProduct } from '../types/Interface';
 
 export const ProductList = () => {
 
-
   const [products, setproducts] = useState<[IProduct]>();
   useEffect(() => {
     axios({
