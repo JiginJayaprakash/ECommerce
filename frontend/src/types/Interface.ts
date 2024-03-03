@@ -10,9 +10,14 @@ type IProduct = {
 };
 
 type IImage = {
-
     src: string,
-
+};
+type ICheckout = {
+  name: string,
+  image: string,
+  price: string,
+  product_Id: string,
+  quantity:number
 };
 
-export type {IProduct,IImage}
+export type {IProduct,IImage, ICheckout}

@@ -32,9 +32,24 @@ export const ProductOverview = () => {
             .catch((err) => { });
     }, [])
     function handleSubmit(e: any) {
-        const path = generatePath("?checkout=true");
-        navigate(path);
-        navigate(0);
+        axios({
+            url: "http://localhost:5000/addCheckout",
+            method: "post",
+            data:{
+                "name":product.name,
+                "image":product.images[0].src,
+                "price":product.price,
+                "product_Id":params.id
+            }
+        })
+            .then((data) => {
+                console.log(data)
+                const path = generatePath("?checkout=true");
+                navigate(path);
+                navigate(0);
+            })
+            .catch((err) => { });
+       
     }
     return (
 

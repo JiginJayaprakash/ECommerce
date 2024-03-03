@@ -15,8 +15,6 @@ export const ProductList = () => {
         setproducts(data.data);
       })
       .catch((err) => { });
-    // Update the document title using the browser API
-    document.title = `You clicked times`;
   },[])
   return (
     <div className="bg-white">

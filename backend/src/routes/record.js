@@ -1,4 +1,5 @@
 const { getProducts , getProduct} = require('../controllers/productController');
+const { getcheckout , addCheckout, deleteProductFromCheckout} = require('../controllers/checkoutController');
 const express = require("express");
 
  
@@ -15,5 +16,8 @@ const ObjectId = require("mongodb").ObjectId;
  
 router.get('/getProducts', getProducts);
 router.get('/getProduct', getProduct);
+router.get('/getcheckout', getcheckout);
+router.post('/addCheckout', addCheckout);
+router.get('/deleteProductFromCheckout', deleteProductFromCheckout);
  
 module.exports = router;
