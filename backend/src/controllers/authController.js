@@ -70,16 +70,12 @@ const userVerification = async (req, res, next) => {
         return c.split("=")[1];
       }
     })[0];
-    console.log(token);
     if (!token) {
-      console.log("here1");
       return res.status(401).send({
         message: "UnAuthenticated",
       });
     }
     jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
-      console.log("here2");
-      console.log(data);
       if (err || !data) {
         return res.status(401).send({
           message: "UnAuthenticated",
@@ -88,7 +84,6 @@ const userVerification = async (req, res, next) => {
         const user = await User.findById(data.id);
         if (user) return next();
         else {
-          console.log("here3");
           return res.status(401).send({
             message: "UnAuthenticated",
           });

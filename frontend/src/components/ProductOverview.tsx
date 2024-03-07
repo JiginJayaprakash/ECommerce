@@ -25,7 +25,6 @@ export const ProductOverview = () => {
       "getProduct?id=" + params.id,
       "get",
       (data: any) => {
-        console.log(data);
         setproduct(data.data[0]);
       },
       () => {

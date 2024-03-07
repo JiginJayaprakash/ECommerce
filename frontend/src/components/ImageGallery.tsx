@@ -1,7 +1,6 @@
 import { IImage, IProduct } from "../types/Interface";
 
 export const ImageGallery = (images: IImage[]) => {
-  console.log(images);
   if (!images) {
     return <></>;
   }

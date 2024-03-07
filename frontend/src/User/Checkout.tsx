@@ -21,7 +21,6 @@ const Checkout = () => {
 
   const getCheckoutProducts = () => {
     api.callApi("getcheckout", "get", (data: any) => {
-      console.log(data);
       setCheckout(data.data);
     });
   };

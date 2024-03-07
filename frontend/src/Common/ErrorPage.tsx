@@ -1,9 +1,5 @@
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 const ErrorPage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">

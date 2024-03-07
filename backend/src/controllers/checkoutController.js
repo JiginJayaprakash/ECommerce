@@ -11,7 +11,6 @@ const addCheckout = async (req, res, next) => {
   const { name, image, price, product_Id } = req.body;
   const query = Checkout.find({ product_Id: product_Id });
   const data = await query.exec();
-  console.log(data);
   if (data.length > 0) {
     const quantity = data[0].quantity;
     const updateCart = await Checkout.findOneAndUpdate(
@@ -32,13 +31,11 @@ const addCheckout = async (req, res, next) => {
 };
 
 const deleteProductFromCheckout = async (req, res, next) => {
-  console.log(req.query);
   const { id } = req.query;
   const query = Checkout.findOneAndDelete({
     product_Id: id,
   });
   const data = await query.exec();
-  console.log(data);
   return res.status(200).json(data);
 };
 
