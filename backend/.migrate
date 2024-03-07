@@ -1,0 +1,9 @@
+{
+  "lastRun": null,
+  "migrations": [
+    {
+      "title": "1709830330992-adduser.js",
+      "timestamp": null
+    }
+  ]
+}
