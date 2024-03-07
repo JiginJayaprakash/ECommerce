@@ -1,23 +1,23 @@
 type IProduct = {
-  _id: number,
+  _id: number;
   name: string;
   description: string;
   price: string;
-  enabled: boolean,
-  images: IImage[],
-  highlights: [],
-  details: string
+  enabled: boolean;
+  images: IImage[];
+  highlights: [];
+  details: string;
 };
 
 type IImage = {
-    src: string,
+  src: string;
 };
 type ICheckout = {
-  name: string,
-  image: string,
-  price: string,
-  product_Id: string,
-  quantity:number
+  name: string;
+  image: string;
+  price: string;
+  product_Id: string;
+  quantity: number;
 };
 
-export type {IProduct,IImage, ICheckout}
+export type { IProduct, IImage, ICheckout };

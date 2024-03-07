@@ -1,30 +1,31 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-    enabled: {
-        type: Boolean,
-        default: true,
+  enabled: {
+    type: Boolean,
+    default: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  description: String,
+  images: [
+    {
+      src: String,
     },
-    name: {
-        type: String,
-        required: true,
-    },
-    description: String,
-    images: [{
-        src : String,
-         }],
-    price:{
-        type: String,
-        required: true,
-    },
-    highlights:{
-        type: Array,
-    },
-    details:String
-
+  ],
+  price: {
+    type: String,
+    required: true,
+  },
+  highlights: {
+    type: Array,
+  },
+  details: String,
 });
 
-productSchema.plugin(require('mongoose-autopopulate'));
+productSchema.plugin(require("mongoose-autopopulate"));
 
-const product = mongoose.model('product', productSchema);
-module.exports = {product}
+const Product = mongoose.model("product", productSchema);
+module.exports = { Product };

@@ -1,64 +1,68 @@
-import { useEffect, useState } from 'react'
-import { StarIcon } from '@heroicons/react/20/solid'
-import { RadioGroup } from '@headlessui/react'
-import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { IProduct } from '../types/Interface'
-import axios from 'axios'
-import ImageGallery from './ImageGallery'
+import { useEffect, useState } from "react";
+import { StarIcon } from "@heroicons/react/20/solid";
+import { RadioGroup } from "@headlessui/react";
+import { generatePath, useNavigate, useParams } from "react-router-dom";
+import { IProduct } from "../types/Interface";
+import ImageGallery from "./ImageGallery";
+import api from "../utils/apiCall";
 
-const reviews = { href: '#', average: 4, totalCount: 117 }
+const reviews = { href: "#", average: 4, totalCount: 117 };
 
 function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export const ProductOverview = () => {
-    const navigate = useNavigate();
-    const p = {} as IProduct;
-    const [product, setproduct] = useState<IProduct>(p);
-    const params = useParams();
-    // const [selectedColor, setSelectedColor] = useState(product.colors[0])
-    // const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+  const navigate = useNavigate();
+  const p = {} as IProduct;
+  const [product, setproduct] = useState<IProduct>(p);
+  const params = useParams();
+  // const [selectedColor, setSelectedColor] = useState(product.colors[0])
+  // const [selectedSize, setSelectedSize] = useState(product.sizes[2])
 
-    useEffect(() => {
-        axios({
-            url: "http://localhost:5000/getProduct?id=" + params.id,
-            method: "get"
-        })
-            .then((data) => {
-                console.log(data)
-                setproduct(data.data[0]);
-            })
-            .catch((err) => { });
-    }, [])
-    function handleSubmit(e: any) {
-        axios({
-            url: "http://localhost:5000/addCheckout",
-            method: "post",
-            data:{
-                "name":product.name,
-                "image":product.images[0].src,
-                "price":product.price,
-                "product_Id":params.id
-            }
-        })
-            .then((data) => {
-                console.log(data)
-                const path = generatePath("?checkout=true");
-                navigate(path);
-                navigate(0);
-            })
-            .catch((err) => { });
-       
-    }
-    return (
-
-        <div className="bg-white">
-
-            <div className="pt-6">
-                <nav aria-label="Breadcrumb">
-                    <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                        {/* {product.breadcrumbs.map((breadcrumb) => (
+  useEffect(() => {
+    api.callApi(
+      "getProduct?id=" + params.id,
+      "get",
+      (data: any) => {
+        console.log(data);
+        setproduct(data.data[0]);
+      },
+      () => {
+        navigate("/login");
+      },
+    );
+  }, []);
+  function handleSubmit(e: any) {
+    api.callApi(
+      "addCheckout",
+      "post",
+      (data: any) => {
+        console.log(data);
+        const path = generatePath("?checkout=true");
+        navigate(path);
+        navigate(0);
+      },
+      {
+        name: product.name,
+        image: product.images[0].src,
+        price: product.price,
+        product_Id: params.id,
+      },
+      () => {
+        navigate("/login");
+      },
+    );
+  }
+  return (
+    <div className="bg-white">
+      <div className="pt-6">
+        <nav aria-label="Breadcrumb">
+          <ol
+            role="list"
+            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+          >
+            {/* {product.breadcrumbs.map((breadcrumb) => (
                             <li key={breadcrumb.id}>
                                 <div className="flex items-center">
                                     <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
@@ -77,64 +81,70 @@ export const ProductOverview = () => {
                                 </div>
                             </li>
                         ))} */}
-                        <li className="text-sm">
-                            <a aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                                {product.name}
-                            </a>
-                        </li>
-                    </ol>
-                </nav>
+            <li className="text-sm">
+              <a
+                aria-current="page"
+                className="font-medium text-gray-500 hover:text-gray-600"
+              >
+                {product.name}
+              </a>
+            </li>
+          </ol>
+        </nav>
 
-                {/* Image gallery */}
-                
-                {product?.images && 
-                <ImageGallery  {...product.images} />
-}
-                
-                {/* <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-2 lg:px-2">
+        {/* Image gallery */}
+
+        {product?.images && <ImageGallery {...product.images} />}
+
+        {/* <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-2 lg:px-2">
                         <ImageGallery  {...product.images} />
                     </div> */}
 
-                
-                    
-                
+        {/* Product info */}
+        <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              {product.name}
+            </h1>
+          </div>
 
-                {/* Product info */}
-                <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-                    <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
-                    </div>
+          {/* Options */}
+          <div className="mt-4 lg:row-span-3 lg:mt-0">
+            <h2 className="sr-only">Product information</h2>
+            <p className="text-3xl tracking-tight text-gray-900">
+              {product.price}
+            </p>
 
-                    {/* Options */}
-                    <div className="mt-4 lg:row-span-3 lg:mt-0">
-                        <h2 className="sr-only">Product information</h2>
-                        <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
+            {/* Reviews */}
+            <div className="mt-6">
+              <h3 className="sr-only">Reviews</h3>
+              <div className="flex items-center">
+                <div className="flex items-center">
+                  {[0, 1, 2, 3, 4].map((rating) => (
+                    <StarIcon
+                      key={rating}
+                      className={classNames(
+                        reviews.average > rating
+                          ? "text-gray-900"
+                          : "text-gray-200",
+                        "h-5 w-5 flex-shrink-0",
+                      )}
+                      aria-hidden="true"
+                    />
+                  ))}
+                </div>
+                <p className="sr-only">{reviews.average} out of 5 stars</p>
+                <a
+                  href={reviews.href}
+                  className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  {reviews.totalCount} reviews
+                </a>
+              </div>
+            </div>
 
-                        {/* Reviews */}
-                        <div className="mt-6">
-                            <h3 className="sr-only">Reviews</h3>
-                            <div className="flex items-center">
-                                <div className="flex items-center">
-                                    {[0, 1, 2, 3, 4].map((rating) => (
-                                        <StarIcon
-                                            key={rating}
-                                            className={classNames(
-                                                reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
-                                                'h-5 w-5 flex-shrink-0'
-                                            )}
-                                            aria-hidden="true"
-                                        />
-                                    ))}
-                                </div>
-                                <p className="sr-only">{reviews.average} out of 5 stars</p>
-                                <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                    {reviews.totalCount} reviews
-                                </a>
-                            </div>
-                        </div>
-
-                        <form className="mt-10">
-                            {/*
+            <form className="mt-10">
+              {/*
                             <div>
                                 <h3 className="text-sm font-medium text-gray-900">Color</h3>
 
@@ -232,50 +242,53 @@ export const ProductOverview = () => {
                                     </RadioGroup>
                             </div>
 */}
-                            <button
-                                type="button" onClick={handleSubmit}
-                                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                Add to bag
-                            </button>
-                        </form> 
-                    </div>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Add to bag
+              </button>
+            </form>
+          </div>
 
-                    <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-                        {/* Description and details */}
-                        <div>
-                            <h3 className="sr-only">Description</h3>
+          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+            {/* Description and details */}
+            <div>
+              <h3 className="sr-only">Description</h3>
 
-                            <div className="space-y-6">
-                                <p className="text-base text-gray-900">{product.description}</p>
-                            </div>
-                        </div>
-
-                        <div className="mt-10">
-                            <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-                            <div className="mt-4">
-                                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                                    {product?.highlights && product?.highlights?.length > 0 && product.highlights.map((highlight) => (
-                                        <li key={highlight} className="text-gray-400">
-                                            <span className="text-gray-600">{highlight}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="mt-10">
-                            <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-                            <div className="mt-4 space-y-6">
-                                <p className="text-sm text-gray-600">{product.details}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div className="space-y-6">
+                <p className="text-base text-gray-900">{product.description}</p>
+              </div>
             </div>
+
+            <div className="mt-10">
+              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+
+              <div className="mt-4">
+                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                  {product?.highlights &&
+                    product?.highlights?.length > 0 &&
+                    product.highlights.map((highlight) => (
+                      <li key={highlight} className="text-gray-400">
+                        <span className="text-gray-600">{highlight}</span>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-10">
+              <h2 className="text-sm font-medium text-gray-900">Details</h2>
+
+              <div className="mt-4 space-y-6">
+                <p className="text-sm text-gray-600">{product.details}</p>
+              </div>
+            </div>
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 export default ProductOverview;

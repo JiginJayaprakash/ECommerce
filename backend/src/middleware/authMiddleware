@@ -1,0 +1,18 @@
+const { userVerification } = require("../controllers/authController");
+
+
+const authMiddleware = function(req, res, next) {
+    console.log(req);
+    console.log(req.url);
+    if(req.url === '/login' || req.url === '/signup')
+    {
+        return next();
+    }
+    else{
+    userVerification(req, res, next);
+    }
+    console.log("done");
+}
+
+
+module.exports = authMiddleware;
