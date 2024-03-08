@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
-import { generatePath, useNavigate, useParams } from "react-router-dom";
+import {
+  generatePath,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { IProduct } from "../types/Interface";
 import ImageGallery from "./ImageGallery";
 import api from "../utils/apiCall";
@@ -13,6 +17,7 @@ function classNames(...classes: string[]) {
 }
 
 export const ProductOverview = () => {
+  let [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const p = {} as IProduct;
   const [product, setproduct] = useState<IProduct>(p);
@@ -241,13 +246,15 @@ export const ProductOverview = () => {
                                     </RadioGroup>
                             </div>
 */}
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Add to bag
-              </button>
+              {!(searchParams.get("seller") === "true" ? true : false) && (
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Add to bag
+                </button>
+              )}
             </form>
           </div>
 

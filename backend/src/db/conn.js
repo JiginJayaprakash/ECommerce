@@ -16,4 +16,4 @@ mongoose.connection.on("error", (error) => {
   console.error(`Error → : ${error.message}`);
 });
 
-module.exports = { connectDB, migrationDB };
+module.exports = { connectDB };

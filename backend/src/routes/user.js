@@ -1,4 +1,4 @@
-const { getProducts, getProduct } = require("../controllers/productController");
+const { getProducts, getProduct, addProduct,getProductByUserId } = require("../controllers/productController");
 const {
   getcheckout,
   addCheckout,
@@ -14,10 +14,14 @@ const router = express.Router();
 // This will help us connect to the database
 const dbo = require("../db/conn");
 
+router.post("/addProduct", addProduct);
+router.get("/getProductByUserId", getProductByUserId);
+
 router.get("/getProducts", getProducts);
 router.get("/getProduct", getProduct);
 router.get("/getcheckout", getcheckout);
 router.post("/addCheckout", addCheckout);
 router.get("/deleteProductFromCheckout", deleteProductFromCheckout);
+
 
 module.exports = router;

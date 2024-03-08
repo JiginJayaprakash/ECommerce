@@ -82,7 +82,11 @@ const userVerification = async (req, res, next) => {
         });
       } else {
         const user = await User.findById(data.id);
-        if (user) return next();
+        if (user) 
+        {
+          res.locals.userId = data.id;  
+          return next();
+        }
         else {
           return res.status(401).send({
             message: "UnAuthenticated",
@@ -91,7 +95,10 @@ const userVerification = async (req, res, next) => {
       }
     });
   } catch (ex) {
-    return (res.statusCode = 500);
+    console.log(ex);
+    return res.status(500).send({
+      message: "Internal server error",
+    })
   }
 };
 

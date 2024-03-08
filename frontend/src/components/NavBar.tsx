@@ -6,6 +6,8 @@ import {
   PlayCircleIcon,
   HomeModernIcon,
   ShoppingBagIcon,
+  PlusCircleIcon,
+  UserIcon,
 } from "@heroicons/react/20/solid";
 import { useCookies } from "react-cookie";
 import { generatePath, useNavigate } from "react-router-dom";
@@ -25,6 +27,8 @@ export const NavBar = () => {
 
   const solutions = [
     { name: "Home", description: "", href: "/", icon: HomeModernIcon },
+    { name: "AddProduct", href: "/addproduct", icon: PlusCircleIcon },
+    { name: "Seller", href: "/seller", icon: UserIcon },
     { name: "Bag", href: "#", icon: ShoppingBagIcon, onClick: Checkout },
   ];
   const callsToAction = [

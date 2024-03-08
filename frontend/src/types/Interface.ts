@@ -5,10 +5,13 @@ type IProduct = {
   price: string;
   enabled: boolean;
   images: IImage[];
-  highlights: [];
+  highlights: string[];
   details: string;
 };
 
+interface ICheckSellerGetProduct extends IProduct {
+  isSeller: boolean;
+}
 type IImage = {
   src: string;
 };
@@ -20,4 +23,4 @@ type ICheckout = {
   quantity: number;
 };
 
-export type { IProduct, IImage, ICheckout };
+export type { IProduct, IImage, ICheckout, ICheckSellerGetProduct };

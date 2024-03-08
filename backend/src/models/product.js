@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
 const productSchema = new mongoose.Schema({
   enabled: {
@@ -12,8 +13,10 @@ const productSchema = new mongoose.Schema({
   description: String,
   images: [
     {
-      src: String,
-    },
+      src: {
+        type: String,
+      }
+    }
   ],
   price: {
     type: String,
@@ -23,6 +26,7 @@ const productSchema = new mongoose.Schema({
     type: Array,
   },
   details: String,
+  userId:Schema.Types.ObjectId
 });
 
 productSchema.plugin(require("mongoose-autopopulate"));
