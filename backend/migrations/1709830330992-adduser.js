@@ -26,7 +26,6 @@ module.exports.up = function (next) {
 
 module.exports.down = function (next) {
   let mClient = null
-  console.log(1)
   return MongoClient.connect(uri)
     .then(client => {
       mClient = client

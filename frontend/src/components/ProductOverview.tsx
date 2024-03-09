@@ -31,7 +31,7 @@ export const ProductOverview = () => {
       "get",
       (data: any) => {
         setproduct(data.data[0]);
-      },
+      },null,
       () => {
         navigate("/login");
       },

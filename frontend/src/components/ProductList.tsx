@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { ICheckSellerGetProduct, IProduct } from "../types/Interface";
 import api from "../utils/apiCall";
+import { useNavigate } from "react-router-dom";
 
 export const ProductList = () => {
   const [products, setproducts] = useState<[ICheckSellerGetProduct]>();
+  const navigate = useNavigate();
   useEffect(() => {
     api.callApi("getProducts", "get", (data: any) => {
       setproducts(data.data);
+    },null,
+    (err:any) => {
+      if(err.response.status === 401)
+        navigate("/login");
     });
   }, []);
   return (

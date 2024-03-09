@@ -1,8 +1,12 @@
 {
-  "lastRun": null,
+  "lastRun": "1709830330992-adduser.js",
   "migrations": [
     {
       "title": "1709830330992-adduser.js",
+      "timestamp": 1709971970261
+    },
+    {
+      "title": "1709973441934-addproducts.js",
       "timestamp": null
     }
   ]
