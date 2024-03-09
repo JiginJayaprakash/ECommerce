@@ -142,13 +142,20 @@ const Checkout = () => {
                         </div>
                       </div>
                     </div>
-                    {checkout.length > 0 &&
+                    {checkout.length > 0 && (
                       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                         <div className="flex justify-between text-base font-medium text-gray-900">
                           <p>Subtotal</p>
-                          <p>${checkout.map((p) => {
-                            return p.quantity * Number(p.price.split('$')[1])
-                          }).reduce((acc, val) => acc + val)}</p>
+                          <p>
+                            $
+                            {checkout
+                              .map((p) => {
+                                return (
+                                  p.quantity * Number(p.price.split("$")[1])
+                                );
+                              })
+                              .reduce((acc, val) => acc + val)}
+                          </p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">
                           Shipping and taxes calculated at checkout.
@@ -175,7 +182,7 @@ const Checkout = () => {
                           </p>
                         </div>
                       </div>
-                    }
+                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

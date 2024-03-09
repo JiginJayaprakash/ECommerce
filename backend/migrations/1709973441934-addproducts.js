@@ -2,7 +2,20 @@
 const mongodb = require('mongodb')
 require("dotenv").config();
 const MongoClient = mongodb.MongoClient
-const uri = process.env.mongoDB_URI;
+const {
+  DB_USER,
+  DB_PASSWORD,
+  DB_HOST,
+  DB_PORT,
+  DB_NAME,
+} = process.env;
+
+let uri 
+if(process.env.IS_DOCKER ==='false' )
+{
+  uri =`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`}
+else{
+  uri =`mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`}
 
 module.exports.up = function (next) {
   let mClient = null
@@ -12,7 +25,8 @@ module.exports.up = function (next) {
       return client.db();
     })
     .then(async (db) => {
-      var user = await db.collection('users').findOne({ 'email': "test@test.com" })
+      console.log('started migration up addproduct');
+      var user = await db.collection('users').findOne({ 'email': "test1@test.com" });
       var product = await db.collection('products')
       await product.insertMany([{
       "enabled":true,
@@ -38,6 +52,7 @@ module.exports.down = function (next) {
       return client.db();
     })
     .then(async (db) => {
+      console.log('started migration down addproduct');
       await db.collection('products').findOneAndDelete({ 'name': "Basic Tee 6-Pack" });
       mClient.close()
       return next()

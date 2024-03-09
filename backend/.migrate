@@ -3,7 +3,7 @@
   "migrations": [
     {
       "title": "1709830330992-adduser.js",
-      "timestamp": 1709971970261
+      "timestamp": 1709984813322
     },
     {
       "title": "1709973441934-addproducts.js",

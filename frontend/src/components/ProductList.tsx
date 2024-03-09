@@ -8,13 +8,22 @@ export const ProductList = () => {
   const [products, setproducts] = useState<[ICheckSellerGetProduct]>();
   const navigate = useNavigate();
   useEffect(() => {
-    api.callApi("getProducts", "get", (data: any) => {
-      setproducts(data.data);
-    },null,
-    (err:any) => {
-      if(err.response.status === 401)
-        navigate("/login");
-    });
+    api.callApi(
+      "getProducts",
+      "get",
+      (data: any) => {
+        setproducts(data.data);
+      },
+      null,
+      (err: any) => {
+        if (err?.response?.status) {
+          navigate("/error");
+        }
+        if (err.response.status === 401) {
+          navigate("/login");
+        }
+      },
+    );
   }, []);
   return (
     <div className="bg-white">

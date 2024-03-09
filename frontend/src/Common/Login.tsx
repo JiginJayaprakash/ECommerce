@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -12,9 +13,14 @@ const Login = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:5000/login", {
-        ...inputValue,
-      });
+      const loginUrl = process.env.REACT_APP_API_BASE_URL + "login";
+      const { data } = await axios.post(
+        loginUrl,
+        {
+          ...inputValue,
+        },
+        { withCredentials: true },
+      );
       const { success, message, token } = data;
       if (success) {
         const cookies = new Cookies();

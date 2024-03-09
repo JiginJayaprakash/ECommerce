@@ -11,8 +11,9 @@ const SignUp = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
+      const signUpUrl = process.env.REACT_APP_API_BASE_URL + "signup";
       const { data } = await axios.post(
-        "http://localhost:5000/signup",
+        signUpUrl,
         {
           ...inputValue,
         },

@@ -1,9 +1,10 @@
 const { mongoose } = require("mongoose");
 
-function connectDB() {
+function connectDB(url) {
+  console.log(url);
   try {
     mongoose.connect(
-      process.env.mongoDB_URI
+      url
     );
 
     console.log("Connected to MongoDB");
