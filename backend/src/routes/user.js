@@ -4,6 +4,9 @@ const {
   addCheckout,
   deleteProductFromCheckout,
 } = require("../controllers/checkoutController");
+const {
+  getBalance
+} = require("../controllers/solanaController");
 const express = require("express");
 
 const router = express.Router();
@@ -19,6 +22,7 @@ router.get("/getProduct", getProduct);
 router.get("/getcheckout", getcheckout);
 router.post("/addCheckout", addCheckout);
 router.get("/deleteProductFromCheckout", deleteProductFromCheckout);
+router.get("/getBalance", getBalance);
 
 
 module.exports = router;

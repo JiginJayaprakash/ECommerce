@@ -17,7 +17,7 @@ const {
 let mongoUri 
 if(process.env.IS_DOCKER ==='false' )
 {
-  mongoUri =`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`}
+  mongoUri =`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_NAME}?retryWrites=true&w=majority`}
 else{
   mongoUri =`mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`}
 

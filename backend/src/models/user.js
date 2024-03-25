@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Your password is required"],
+  }, 
+  accountKeyPair: {
+    type: String,
+    required: [true, "Your account is required"],
   },
   createdAt: {
     type: Date,

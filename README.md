@@ -23,9 +23,11 @@ db.users.find().toArray()
 
 ## Run Backend
 ```
-cd frontend
+cd backend
 
-node server.js
+npm run migrate
+
+npm start
 ```
 
 ## Run Frontend

@@ -1,13 +1,13 @@
 {
-  "lastRun": "1709830330992-adduser.js",
+  "lastRun": "1709973441934-addproducts.js",
   "migrations": [
     {
       "title": "1709830330992-adduser.js",
-      "timestamp": 1709984813322
+      "timestamp": 1711380224302
     },
     {
       "title": "1709973441934-addproducts.js",
-      "timestamp": null
+      "timestamp": 1711380224524
     }
   ]
 }

@@ -2,6 +2,7 @@ const { User } = require("../models/user");
 const { createSecretToken } = require("../utils/token");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { Keypair } = require("@solana/web3.js");
 
 const signup = async (req, res, next) => {
   try {
@@ -10,7 +11,8 @@ const signup = async (req, res, next) => {
     if (existingUser) {
       return res.json({ message: "User already exists" });
     }
-    const user = await User.create({ email, password, createdAt });
+    var kp = Keypair.generate()
+    const user = await User.create({ email, password, kp, createdAt });
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
       withCredentials: true,
