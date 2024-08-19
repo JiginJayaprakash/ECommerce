@@ -45,25 +45,6 @@ export const NavBar = () => {
       onClick: Logout,
     },
   ];
-
-  useEffect(() => {
-    api.callApi(
-      "getBalance",
-      "get",
-      (data: any) => {
-        console.log(data);
-      },
-      null,
-      (err: any) => {
-        if (err?.response?.status) {
-          navigate("/error");
-        }
-        if (err.response.status === 401) {
-          navigate("/login");
-        }
-      },
-    );
-  }, []);
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="flex h-16 items-center justify-between">

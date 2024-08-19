@@ -1,8 +1,6 @@
 'use strict'
 const mongodb = require('mongodb')
-const { Keypair } = require("@solana/web3.js");
 require("dotenv").config();
-const { LAMPORTS_PER_SOL,Connection, clusterApiUrl } = require("@solana/web3.js");
 const MongoClient = mongodb.MongoClient
 const {
   DB_USER,
@@ -20,9 +18,6 @@ else{
   uri =`mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`}
 
 
-const CLUSTER_URL = process.env.RPC_URL ?? clusterApiUrl("devnet");
-const connection = new Connection(CLUSTER_URL, "single");
-
 module.exports.up = function (next) {
   let mClient = null
   console.log('started migration up addUser');
@@ -35,27 +30,14 @@ module.exports.up = function (next) {
       console.log('started migration up 2');
       var date = Date.now();
       var user = await db.collection('users')
-      var kp1 = Keypair.generate()
-      var kp2 = Keypair.generate()
       await user.insertMany([{
-        'email': "test1@test.com", 'password': "$2a$12$jL0cCdYvUdkf1gvRI5/K6upSTBk2.3H.KC7TXHoSvGdWti/SHPGqu",
-        'createdAt': date, 'accountKeyPair' : kp1.publicKey.toBase58()
+        'email': "test1@test.com", 'password': "$2a$11$5av8DXYicXDp26nziFw48u2DomVH6DtodAZRXbOBO2js7931ftqpK",
+        'createdAt': date
       },{
-        'email': "test@test.com", 'password': "$2a$12$jL0cCdYvUdkf1gvRI5/K6upSTBk2.3H.KC7TXHoSvGdWti/SHPGqu",
-        'createdAt': date, 'accountKeyPair' : kp2.publicKey.toBase58()
+        'email': "test@test.com", 'password': "$2a$11$5av8DXYicXDp26nziFw48u2DomVH6DtodAZRXbOBO2js7931ftqpK",
+        'createdAt': date
       }])
-      await connection.requestAirdrop(
-        kp1.publicKey,
-        LAMPORTS_PER_SOL
-      ).catch((err) => {
-        console.error(`Error: ${err}`);
-      });
-      await connection.requestAirdrop(
-        kp2.publicKey,
-        LAMPORTS_PER_SOL
-      ).catch((err) => {
-        console.error(`Error: ${err}`);
-      });
+      
       mClient.close()
       return next()
     })
